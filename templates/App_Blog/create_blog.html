@@ -1,0 +1,17 @@
+{% extends 'blogSite/base.html' %}
+{% load crispy_forms_filters %}
+{% block title %}
+    Write Blog
+{% endblock %}
+{% block body %}
+    <div class="container" style="margin-top: 20px; margin-bottom: 20px;">
+        <hr style="height: 10px;">
+        <h3 style="margin-top: 20px">Create Blog</h3>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-success">Publish</button>
+        </form>
+        <hr>
+    </div>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'blogSite/base.html' %}
+{% load static %}
+{% block title %}
+    Profile
+{% endblock %}
+{% block body %}
+    <link rel="stylesheet" href="{% static 'css/author.css' %}">
+    <style>
+        .profile-container{
+            margin-top: 100px;
+            margin-bottom: 200px;
+            margin-left: 150px;
+        }
+    </style>
+    <hr>
+    <div class="container profile-container">
+        <div class="row">
+            <div class="col-lg-4 col-md-2">
+                {% if user.user_profile %}
+                    <a href="{% url 'App_Login:change_profile_picture' %}">
+                        <img src="{{ user.user_profile.profile_pic.url }}" alt="profile pic"
+                             class="rounded-circle profile-photo-class">
+                        <p class="text-center">Change Profile Picture</p>
+                    </a>
+                {% else %}
+                    <a href="{% url 'App_Login:add_picture' %}">
+                        <img src="{% static 'images/default_profile_picture.jpg' %}" alt="profile picture"
+                             class="rounded-circle profile-photo-class">
+                        <p>Change Profile Picture</p>
+                    </a>
+                {% endif %}
+            </div>
+            <div class="col-lg-8 col-md-10">
+                <p class="user-name">
+                    {% if user.last_name %}
+                        <span>{{ user.first_name }} {{ user.last_name }}</span>
+                    {% else %}
+                        <span class="text-uppercase">{{ user.username }}</span>
+                    {% endif %}&nbsp;
+                    <a class="btn btn-dark btn-sm" href="{% url 'App_Login:change_profile' %}"><span
+                            id="edit-profile-btn">Edit Profile</span>
+                        <i class="fa fa-gear fa-spin" style="font-size:16px"></i>
+                    </a>
+                </p>
+                <div class="row">
+                    <div class="col-2">
+                        <a href="{% url 'App_Blog:my_blog' %}">{{ user.post_author.count }} blogs</a>
+                    </div>
+                    <div class="col-2">
+                        <a href="#" class="text-lowercase">@{{ user.username }}</a>
+                    </div>
+                    <div class="col-2"><a href="#">{{ user.email }}</a></div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,17 @@
+{% extends 'blogSite/base.html' %}
+{% load crispy_forms_filters %}
+{% block title %}
+    Edit Profile
+{% endblock %}
+{% block body %}
+    <div class="container" style="margin-top: 10px; margin-bottom: 20px">
+        <hr>
+        <h3>Edit Profile:</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit" value="Update" class="btn btn-warning btn-sm">
+        </form>
+        <hr>
+    </div>
+{% endblock %}

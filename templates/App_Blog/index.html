@@ -1,0 +1,81 @@
+{% extends 'blogSite/base.html' %}
+{% load static %}
+{% load custom_filters %}
+{% block title %}
+    Home
+{% endblock %}
+{% block body %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <section class="mb-30px">
+        <div class="container">
+            <div class="hero-banner">
+                <div class="hero-banner__content">
+                    <h3>Tours & Travels</h3>
+                    <h1>Amazing Places on earth</h1>
+                    <h4>With</h4>
+                    <h1>Hati Hati Pa Pa</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================ Start Blog Post Area =================-->
+    <section class="blog-post-area section-margin mt-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        {% for blog in Blog %}
+                            <div class="col-md-6">
+                                <div class="single-recent-blog-post card-view">
+                                    <div class="thumb">
+                                        <img class="card-img rounded-0" src="{{ blog.blog_image.url }}" alt="Blog-Image"
+                                             style="width: 500px; height: 500px">
+                                        <ul class="thumb-info">
+                                            <li>
+                                                <a href="{% url 'App_Blog:blog-author-profile' username=blog.author.username %}"><i
+                                                        class="fa fa-user"></i>{{ blog.author.username }}</a></li>
+                                            <li><a href="#"><i class="fa fa-user"></i>{{ blog.publish_date }}</a></li>
+                                            <li><a href="#"><i
+                                                    class="fa fa-comments-o"></i>{{ blog.blog_comment.count }} Comments</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="details mt-20">
+                                        <a href="{% url 'App_Blog:blog_details' slug=blog.slug %}">
+                                            <h3>{{ blog.blog_title }}</h3>
+                                        </a>
+                                        <p>{{ blog.blog_content|range_filter|linebreaks }}</p>
+                                        <a class="button" href="{% url 'App_Blog:blog_details' slug=blog.slug %}">Read
+                                            More
+                                            <i class="fa fa-arrow-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+
+                    <!---------------->
+                    {#                        <div class="single-recent-blog-post">#}
+                    {#                            <div class="thumb">#}
+                    {#                                <img class="img-fluid" src="{{ blog.blog_image.url }}" alt="">#}
+                    {#                                <ul class="thumb-info" style="background-color: transparent;">#}
+                    {#                                    <li><a href="#"><i class="ti-user"></i>{{ blog.author }}</a></li>#}
+                    {#                                    <li><a href="#"><i class="ti-notepad"></i>{{ blog.publish_date }}</a></li>#}
+                    {#                                    <li><a href="#"><i class="ti-themify-favicon"></i>{{ blog.blog_comment.count }}#}
+                    {#                                        Comment</a></li>#}
+                    {#                                </ul>#}
+                    {#                            </div>#}
+                    {#                            <div class="details mt-20">#}
+                    {#                                <h3>{{ blog.blog_title }}</h3>#}
+                    {#                                <p>{{ blog.blog_content|range_filter|linebreaks }}</p>#}
+                    {#                                <a class="button" href="{% url 'App_Blog:blog_details' slug=blog.slug %}">Read More <i#}
+                    {#                                        class="ti-arrow-right"></i></a>#}
+                    {#                            </div>#}
+                    {#                        </div>#}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
